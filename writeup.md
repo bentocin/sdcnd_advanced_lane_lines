@@ -60,7 +60,8 @@ The distortion coefficients and the matrix extracted from the calibration images
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image. This was used to filter for yellow and white color. The color filtering was done in the HLS color space. The HLS color space is better suited for this task than the RGB color space because it gives the oportunity to filter the color type by hue and set a range for lightness and saturation. For the gradient a Sobel filter was used to get gradients in x-direction as lane lines are rather vertical from a cars perspective. This part is implemented in the second code cell of section "Step 2: Pipeline".
+First, I used a combination of color and gradient thresholds to generate a binary image. This was used to filter for yellow and white color. The color filtering was done in the HLS color space. The HLS color space is better suited for this task than the RGB color space because it gives the oportunity to filter the color type by hue and set a range for lightness and saturation. For the gradient a Sobel filter was used to get gradients in x-direction as lane lines are rather vertical from a cars perspective. This part is implemented in the second code cell of section "Step 2: Pipeline".
+Especially the sobel part was leading to difficulties in some of the videos. This is why it was replaced with two single channel filters to support the color detection. Therefore, a lightness filter was added that filters values between 225 and 255 in the L channel of a HLS image and a filter for the b channel in a Lab images was added that filters values between 155 and 200.
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
@@ -68,9 +69,9 @@ The code for my perspective transform is also located in the second code cell of
 
 ```python
 # Source points of the image for persepctive transform
-src = np.float32([[708,460], [1126,720], [190,720], [577,460]])
+src = np.float32([[708,460], [1055,680], [250,680], [577,460]])
 # Destination points the source points should be mapped to
-dst = np.float32([[1080,0], [1080,720], [236,720], [236,0]])
+dst = np.float32([[830,0], [830,720], [450,720], [450,0]])
 ```
 This covers the following are in test images with straight lane lines:
 ![alt text][image5]
@@ -93,7 +94,7 @@ The first step is to find the starting positions, which is done by taking the bi
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-In the same code cell as above there is a function implemented to calculate the curvature of a polynomial (`compute_curvature()`). The function makes use of the mathematical formula to calculate the curvature and uses the first and second derivative of the second order polynomial. The same code snipped is implemented later as a method within the `Line` class.
+In the same code cell as above there is a function implemented to calculate the curvature of a polynomial (`compute_curvature()`). The function makes use of the mathematical formula to calculate the curvature radius and uses the first and second derivative of the second order polynomial. The same code snipped is implemented later as a method within the `Line` class. Here the pixel values are converted to meter scale before calculating the radius.
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
