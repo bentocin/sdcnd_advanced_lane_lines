@@ -60,7 +60,7 @@ The distortion coefficients and the matrix extracted from the calibration images
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image. This was used to filter for yellow and white color. The color filtering was done in the HSV color space. The HSV color space is better suited for this task than the RGB color space because it gives the oportunity to filter the color type by hue and set a range for lightness and saturation. For the gradient a Sobel filter was used to get gradients in x-direction as lane lines are rather vertical from a cars perspective. This part is implemented in the second code cell of section "Step 2: Pipeline".
+I used a combination of color and gradient thresholds to generate a binary image. This was used to filter for yellow and white color. The color filtering was done in the HLS color space. The HLS color space is better suited for this task than the RGB color space because it gives the oportunity to filter the color type by hue and set a range for lightness and saturation. For the gradient a Sobel filter was used to get gradients in x-direction as lane lines are rather vertical from a cars perspective. This part is implemented in the second code cell of section "Step 2: Pipeline".
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
